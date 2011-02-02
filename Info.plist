@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Studio Melipone</string>
+	<key>CFBundleDisplayName</key>
+	<string>Upshot</string>
+	<key>CFBundleIdentifier</key>
+	<string>eu.studiomelipone.upshot</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Global Page</key>
+		<string>main.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>upshot</string>
+				<key>Identifier</key>
+				<string>upshot</string>
+				<key>Image</key>
+				<string>icon.png</string>
+				<key>Label</key>
+				<string>UpShot</string>
+				<key>Palette Label</key>
+				<string>UpShot</string>
+				<key>Tool Tip</key>
+				<string>UpShot this page !</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>Start</key>
+			<array>
+				<string>injected.js</string>
+			</array>
+		</dict>
+		<key>Stylesheets</key>
+		<array>
+			<string>styles.css</string>
+		</array>
+	</dict>
+	<key>Description</key>
+	<string>An UpShot extension for Safari</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Website</key>
+	<string>http://upshotapp.com</string>
+</dict>
+</plist>

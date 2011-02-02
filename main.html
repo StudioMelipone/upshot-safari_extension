@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UpShot safari Extension</title>
+  </head>
+  <script type="text/javascript" charset="utf-8">
+    // ////////////////////////////////////////////////////////////////////////
+    // Here we are in the global safari application.
+    // No access to web pages, but to safari app elements and listening scripts.
+    // ////////////////////////////////////////////////////////////////////////
+    
+    // Listen to events
+    // 'command' events are received once click on extension is done
+    // 'validate' events are received from safari to ensure the command is ready to be executed
+    // 'message' events are received from injected script
+    safari.application.addEventListener("command", myCommandHandler, false);
+    safari.application.addEventListener("validate", myValidateHandler, false);
+    safari.application.addEventListener("message", myMessageHandler, false);
+    
+    safari.self.tab.dispatchMessage("upshot_safari_extension", "activate");
+    
+    function myCommandHandler(event){
+      if(event.command==="upshot"){
+        
+        box = '';
+        box = box + "<div id='upshot_safari_box'>";
+          box = box + "<img src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />"
+          box = box + "<h3>accounts select</h3>";
+          box = box + "<p>"
+            box = box + "<button id='upshot_safari_cancel' class='red' onclick='trackButton('cancel')';' type='reset' formnovalidate='formnovalidate'>Cancel</button>"
+            box = box + "<button type='button' name='commit' value='Draft' id='Draft' onclick='submission();' formnovalidate='formnovalidate'>Draft</button>"
+          box = box + "</p>"
+
+          // <form action="upshot_submit" method="post" accept-charset="utf-8" id="new_upshot" enctype="multipart/form-data">
+          //   <input type="hidden" name="upshot[base64]" value="" id="base64">
+          //   <input type="hidden" name="upshot[title]" value="" id="title">
+          //   <input type="hidden" name="upshot[temporary_owner_tag_list]" value="" id="tag_list">
+          //   <p>
+          //     <button class="red" onclick="trackButton('cancel');" type="reset" formnovalidate="formnovalidate">Cancel</button>
+          //     <button type="button" name="commit" value="Draft" id="Draft" onclick="submission();" formnovalidate="formnovalidate">Draft</button>
+          //   <p>
+          // </form>
+        
+        box = box + "</div>";
+        
+        safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shot", box);
+        
+        // disabled extension while screenshooting, avoids to have several boxes
+        event.target.disabled = true;
+      }
+    }
+    
+    function myValidateHandler(event){
+      if (event.command === "upshot") {
+	        // Disable the button if there is no URL loaded in the tab.
+	        event.target.disabled = !event.target.browserWindow.activeTab.url;
+	    }
+    }
+    
+    function myMessageHandler(event) {
+      if (event.name === "upshot_safari_extension" && event.message === "activate") {
+        // Is there an URL loaded in the tab.
+    		var has_url = event.target.browserWindow.activeTab.url;
+    		safari.extension.toolbarItems[0].disabled = !has_url;
+		  }
+  	}
+    
+  </script>
+  <body></body>
+</html>
