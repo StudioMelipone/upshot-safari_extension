@@ -36,5 +36,17 @@
 		<key>Secure</key>
 		<true/>
 	</dict>
+	<dict>
+		<key>Key</key>
+		<string>upshot_safari_accounts</string>
+		<key>Title</key>
+		<string>accounts</string>
+		<key>Titles</key>
+		<array/>
+		<key>Type</key>
+		<string>ListBox</string>
+		<key>Values</key>
+		<array/>
+	</dict>
 </array>
 </plist>

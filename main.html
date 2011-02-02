@@ -17,20 +17,12 @@
         box = box + "<div id='upshot_safari_box'>";
           box = box + "<img id='base64' name='upshot[base64]' src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />";
           box = box + "<div id='accounts'>accounts select</div>";
+          box = box + "<input type='hidden' name='email' value='"+ safari.extension.secureSettings.upshot_safari_login +"' id='upshot_safari_login'>";
+          box = box + "<input type='hidden' name='token' value='"+ safari.extension.secureSettings.upshot_safari_token +"' id='upshot_safari_token'>";
           box = box + "<p id='buttons'>";
             box = box + "<button id='upshot_safari_cancel' class='red' type='reset' formnovalidate='formnovalidate'>Cancel</button>";
             box = box + "<button type='button' name='commit' value='Draft' id='Draft' formnovalidate='formnovalidate'>Draft</button>";
           box = box + "</p>";
-
-          // <form action="upshot_submit" method="post" accept-charset="utf-8" id="new_upshot" enctype="multipart/form-data">
-          //   <input type="hidden" name="upshot[base64]" value="" id="base64">
-          //   <input type="hidden" name="upshot[title]" value="" id="title">
-          //   <input type="hidden" name="upshot[temporary_owner_tag_list]" value="" id="tag_list">
-          //   <p>
-          //     <button class="red" onclick="trackButton('cancel');" type="reset" formnovalidate="formnovalidate">Cancel</button>
-          //     <button type="button" name="commit" value="Draft" id="Draft" onclick="submission();" formnovalidate="formnovalidate">Draft</button>
-          //   <p>
-          // </form>
         
         box = box + "</div>";
         

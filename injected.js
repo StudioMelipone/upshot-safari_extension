@@ -82,7 +82,39 @@ function submission(){
 	div.appendChild(document.createTextNode(" Sending upshot..."));
 	main.appendChild(div);
 	
-	// close_popup();
+	// SENDING
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "http://" + "designer" + ".upshot.dev/upshots", true);
+  
+  // Re-create form to handle callback
+  var formData = new FormData();
+  // Re-add fields to new form (also avoid additional malicious fields.)
+  formData.append("upshot[base64]", img.src.substr(22, length));
+  formData.append("upshot[title]", "test");
+  formData.append("upshot[temporary_owner_tag_list]", "");
+  formData.append("email", document.getElementById("upshot_safari_login").value);
+  formData.append("token", document.getElementById("upshot_safari_token").value);
+  
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      
+      // CALLBACK SENT
+      if(xhr.status==201){
+        main.style.color = "#166F28";
+        main.style.font = "Georgia bold 22px";
+        main.innerHTML = "Your upshot has been successfully <b>created</b>" ;
+        // Google analyticts
+        trackButton('draft');
+      } else{
+        main.style.color = "#FF0000";
+        main.innerHTML = "An Error occured";
+        // Google analyticts
+        trackButton('error_on_draft');
+      }
+    }
+  }
+  xhr.send(formData);
+
 }
 
 // /////////////////
@@ -99,15 +131,15 @@ function submission(){
 //   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 // })();
 // 
-// function trackButton(button_name) {
-//   _gaq.push(['_trackEvent', 'button_' + button_name, 'clicked']);
-//   
-//   if(button_name=='draft' || button_name=='error_on_draft'){
-//     setTimeout(function() {
-//       close_popup();
-//     }, 1500);
-//   }else{
-//     close_popup();
-//   }
-//   
-// };
+function trackButton(button_name) {
+  // _gaq.push(['_trackEvent', 'button_' + button_name, 'clicked']);
+  
+  if(button_name=='draft' || button_name=='error_on_draft'){
+    setTimeout(function() {
+      close_popup();
+    }, 1500);
+  }else{
+    close_popup();
+  }
+  
+}
