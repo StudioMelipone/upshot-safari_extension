@@ -10,16 +10,17 @@
     // ////////////////////////////////////////////////////////////////////////
     
     function myCommandHandler(event){
-      if(event.command==="upshot" && safari.extension.settings.is_opened===0){
+      
+      var box = '';
+      if( event.command==="upshot" && safari.extension.settings.is_opened===0 && has_credentials() ){
         
-        box = '';
         box = box + "<div id='upshot_safari_box'>";
-          box = box + "<img src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />"
+          box = box + "<img src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />";
           box = box + "<h3>accounts select</h3>";
-          box = box + "<p>"
-            box = box + "<button id='upshot_safari_cancel' class='red' type='reset' formnovalidate='formnovalidate'>Cancel</button>"
-            box = box + "<button type='button' name='commit' value='Draft' id='Draft' formnovalidate='formnovalidate'>Draft</button>"
-          box = box + "</p>"
+          box = box + "<p>";
+            box = box + "<button id='upshot_safari_cancel' class='red' type='reset' formnovalidate='formnovalidate'>Cancel</button>";
+            box = box + "<button type='button' name='commit' value='Draft' id='Draft' formnovalidate='formnovalidate'>Draft</button>";
+          box = box + "</p>";
 
           // <form action="upshot_submit" method="post" accept-charset="utf-8" id="new_upshot" enctype="multipart/form-data">
           //   <input type="hidden" name="upshot[base64]" value="" id="base64">
@@ -37,7 +38,24 @@
         safari.extension.settings.is_opened = 1;
         // disabled extension while screenshooting, avoids to have several boxes
         event.target.disabled = true;
+
+      }else if( !has_credentials() ){
+        box = box + "<div id='upshot_safari_box'>";
+          box = box + "<h2>Settings</h2>";
+          box = box + "<p>";
+            box = box + "Your credential are not defined yet, please go to 'Safari/Preferences > Extensions > UpShot' to define them.<br/>";
+            // box = box + ""
+            box = box + "<button id='upshot_safari_settings_save' type='button' formnovalidate='formnovalidate'>Save</button>";
+          box = box + "</p>";
+        box = box + "</div>";
+        
+        
+        safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("credentials", box);
+        safari.extension.settings.is_opened = 1;
+        // disabled extension while screenshooting, avoids to have several boxes
+        event.target.disabled = true;
       }
+      
     }
     
     function myValidateHandler(event){
@@ -53,13 +71,24 @@
     }
     
     function myMessageHandler(event) {
-      if (event.name === "upshot_safari_extension" && event.message === "activate") {
-        // Is there an URL loaded in the tab.
-    		var has_url = event.target.browserWindow.activeTab.url;
-    		safari.extension.toolbarItems[0].disabled = !has_url;
-    		safari.extension.settings.is_opened = 0;
+      if (event.name === "upshot_safari_extension") {
+        if( event.message === "activate" ){
+          // Is there an URL loaded in the tab.
+      		var has_url = event.target.browserWindow.activeTab.url;
+      		safari.extension.toolbarItems[0].disabled = !has_url;
+      		safari.extension.settings.is_opened = 0;
+        }
+        else if (event.message === "upshot"){
+          alert(safari.extension.secureSettings.upshot_safari_login + " is upshoting...");
+        }
 		  }
   	}
+  	
+  	function has_credentials(){
+      if (safari.extension.secureSettings.upshot_safari_login == undefined || safari.extension.secureSettings.upshot_safari_token == undefined){
+        return false;
+      } else return true;
+    }
   	
     // Listen to events
     // 'command' events are received once click on extension is done
@@ -68,7 +97,8 @@
     safari.application.addEventListener("command", myCommandHandler, false);
     safari.application.addEventListener("validate", myValidateHandler, false);
     safari.application.addEventListener("message", myMessageHandler, false);
-    safari.self.tab.dispatchMessage("upshot_safari_extension", "activate");
+     safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("upshot_safari_extension", "activate");
+    // safari.self.tab.dispatchMessage("upshot_safari_extension", "activate");
     
   </script>
   <body></body>

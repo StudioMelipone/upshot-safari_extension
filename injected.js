@@ -6,24 +6,39 @@ function handleMessage(msgEvent) {
 	
 	if(message === "shot") {
 		if(window.top === self) {
-			// Insert html data in web page
-			var container = document.createElement('div');
-			container.setAttribute('id', 'upshot_safari_box_container');
-			container.innerHTML = data;
-			document.body.appendChild(container);
+			// Show screenshot and form
+			setup_box_container(data);
 			
 			// add a listener on buttons
 			var cancel = document.getElementById('upshot_safari_cancel');
 			cancel.addEventListener('click', close_popup, false);
-			
-			// add a listener on buttons
+
 			var draft_submit = document.getElementById('Draft');
-			draft_submit.addEventListener('click', submission, false);
+			draft_submit.addEventListener('click', submission(data), false);
 		}
+	} else if (message === "credentials"){
+		// Setup credentials
+		setup_box_container(data);
+		
+		// add listener on save button
+		var save = document.getElementById('upshot_safari_settings_save');
+		save.addEventListener('click', save_settings, false);
+		
 	}
 	
 }
 
+function setup_box_container(data){
+	// Insert html data in web page
+	var container = document.createElement('div');
+	container.setAttribute('id', 'upshot_safari_box_container');
+	container.innerHTML = data;
+	document.body.appendChild(container);
+}
+
+function save_settings(){
+	close_popup();
+}
     
 function close_popup(){
 	// close window
@@ -41,8 +56,12 @@ function close_popup(){
 // UPSHOT 
 // /////////
 
-function submission(){
+function submission(data){
   // Form submission by clicking the 'Draft' button
+	
+	safari.self.tab.dispatchMessage("upshot_safari_extension", "upshot");
+	
+	console.log(data);
 	
 	close_popup();
 }
