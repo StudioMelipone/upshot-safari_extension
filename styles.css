@@ -11,18 +11,25 @@
 	border: 1px solid #ccc;
 	-webkit-border-radius: 5px;
 	padding: 5px;
+	line-height: 1.5em;
 }
 
 #upshot_safari_box h3{
 	line-height: 1.5em;
 	font-family: Georgia;
 	font-size: 18px;
+	margin: 5px;
 }
 
 #upshot_safari_box img{
 	border: 1px solid #ccc;
 	width: 240px;
 	margin: 10px;
+}
+
+#upshot_safari_box p{
+	margin: 5px;
+	line-height: 1.5em;
 }
 
 /* UPSHOT STYLES*/

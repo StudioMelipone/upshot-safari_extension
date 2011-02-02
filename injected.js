@@ -15,6 +15,10 @@ function handleMessage(msgEvent) {
 			// add a listener on buttons
 			var cancel = document.getElementById('upshot_safari_cancel');
 			cancel.addEventListener('click', close_popup, false);
+			
+			// add a listener on buttons
+			var draft_submit = document.getElementById('Draft');
+			draft_submit.addEventListener('click', submission, false);
 		}
 	}
 	
@@ -40,6 +44,7 @@ function close_popup(){
 function submission(){
   // Form submission by clicking the 'Draft' button
 	
+	close_popup();
 }
 
 // /////////////////
