@@ -23,7 +23,7 @@
 
 #upshot_safari_box img{
 	border: 1px solid #ccc;
-	width: 240px;
+	max-width: 240px;
 	margin: 10px;
 }
 

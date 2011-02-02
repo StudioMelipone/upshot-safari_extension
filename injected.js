@@ -14,7 +14,7 @@ function handleMessage(msgEvent) {
 			cancel.addEventListener('click', close_popup, false);
 
 			var draft_submit = document.getElementById('Draft');
-			draft_submit.addEventListener('click', submission(data), false);
+			draft_submit.addEventListener('click', submission, false);
 		}
 	} else if (message === "credentials"){
 		// Setup credentials
@@ -56,14 +56,33 @@ function close_popup(){
 // UPSHOT 
 // /////////
 
-function submission(data){
+function submission(){
   // Form submission by clicking the 'Draft' button
 	
-	safari.self.tab.dispatchMessage("upshot_safari_extension", "upshot");
+	// safari.self.tab.dispatchMessage("upshot_safari_extension", "upshot");
 	
-	console.log(data);
+	// UX : WE ARE SENDING, PLEASE WAIT
+	var img = document.getElementById('base64');
+	var accounts = document.getElementById('accounts');
+	var buttons = document.getElementById('buttons');
+	var main = document.getElementById('upshot_safari_box');
 	
-	close_popup();
+	accounts.style.visibility = "hidden";
+  accounts.style.display = "none";
+	buttons.style.visibility = "hidden";
+  buttons.style.display = "none";
+	
+	main.style.width = 200;
+  var load = document.createElement("img");
+  load.src = safari.extension.baseURI + "ajax-loader.gif";
+  load.style.border = "none";
+
+	var div = document.createElement("div");
+  div.appendChild(load);
+	div.appendChild(document.createTextNode(" Sending upshot..."));
+	main.appendChild(div);
+	
+	// close_popup();
 }
 
 // /////////////////

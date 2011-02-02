@@ -15,9 +15,9 @@
       if( event.command==="upshot" && safari.extension.settings.is_opened===0 && has_credentials() ){
         
         box = box + "<div id='upshot_safari_box'>";
-          box = box + "<img src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />";
-          box = box + "<h3>accounts select</h3>";
-          box = box + "<p>";
+          box = box + "<img id='base64' name='upshot[base64]' src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />";
+          box = box + "<div id='accounts'>accounts select</div>";
+          box = box + "<p id='buttons'>";
             box = box + "<button id='upshot_safari_cancel' class='red' type='reset' formnovalidate='formnovalidate'>Cancel</button>";
             box = box + "<button type='button' name='commit' value='Draft' id='Draft' formnovalidate='formnovalidate'>Draft</button>";
           box = box + "</p>";
@@ -79,7 +79,7 @@
       		safari.extension.settings.is_opened = 0;
         }
         else if (event.message === "upshot"){
-          alert(safari.extension.secureSettings.upshot_safari_login + " is upshoting...");
+          // alert(safari.extension.secureSettings.upshot_safari_login + " is upshoting...");
         }
 		  }
   	}
