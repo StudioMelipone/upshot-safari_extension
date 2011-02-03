@@ -14,41 +14,32 @@
       var box = '';
       if( event.command==="upshot" && safari.extension.settings.is_opened===0 && has_credentials() ){
         
-        box = box + "<div id='upshot_safari_box'>";
-          box = box + "<img id='base64' name='upshot[base64]' src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />";
-          box = box + "<div id='accounts'>accounts select</div>";
-          // box= box + "<input type='hidden' name='title' value='"+ safari.application.activeBrowserWindow.activeTab.title +"' id='upshot_safari_title'> ";
-          // box = box + "<input type='hidden' name='email' value='"+ safari.extension.secureSettings.upshot_safari_login +"' id='upshot_safari_login'>";
-          // box = box + "<input type='hidden' name='token' value='"+ safari.extension.secureSettings.upshot_safari_token +"' id='upshot_safari_token'>";
-          box = box + "<p id='buttons'>";
-            box = box + "<button id='upshot_safari_cancel' class='red' type='reset' formnovalidate='formnovalidate'>Cancel</button>";
-            box = box + "<button type='button' name='commit' value='Draft' id='Draft' formnovalidate='formnovalidate'>Draft</button>";
-          box = box + "</p>";
-        
-        box = box + "</div>";
+        box = box + "\
+          <div id='upshot_safari_box'>\
+            <img id='base64' name='upshot[base64]' src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />\
+            <div id='accounts'>accounts select</div>\
+            <p id='buttons'>\
+              <button id='upshot_safari_cancel' class='red' type='reset' formnovalidate='formnovalidate'>Cancel</button>\
+              <button type='button' name='commit' value='Draft' id='Draft' formnovalidate='formnovalidate'>Draft</button>\
+            </p>\
+          </div>";
         
         safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shot", box);
-        safari.extension.settings.is_opened = 1;
-        // disabled extension while screenshooting, avoids to have several boxes
-        event.target.disabled = true;
-
-      }else if( !has_credentials() ){
-        box = box + "<div id='upshot_safari_box'>";
-          box = box + "<h2>Settings</h2>";
-          box = box + "<p>";
-            box = box + "Your credential are not defined yet, please go to 'Safari/Preferences > Extensions > UpShot' to define them.<br/>";
-            // box = box + ""
-            box = box + "<button id='upshot_safari_settings_save' type='button' formnovalidate='formnovalidate'>Save</button>";
-          box = box + "</p>";
-        box = box + "</div>";
-        
+      } else if( !has_credentials() ){
+        box = box + "\
+          <div id='upshot_safari_box'>\
+            <h2>Settings</h2>\
+            <p>\
+              Your credential are not defined yet, please go to 'Safari/Preferences > Extensions > UpShot' to define them.<br/>\
+              <button id='upshot_safari_settings_save' type='button' formnovalidate='formnovalidate'>Save</button>\
+            </p>\
+          </div>";
         
         safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("credentials", box);
-        safari.extension.settings.is_opened = 1;
-        // disabled extension while screenshooting, avoids to have several boxes
-        event.target.disabled = true;
       }
-      
+      safari.extension.settings.is_opened = 1;
+      // disabled extension while screenshooting, avoids to have several boxes
+      event.target.disabled = true;
     }
     
     function myValidateHandler(event){
@@ -77,6 +68,7 @@
 		  }
   	}
   	
+    // Test if login/token are setted
   	function has_credentials(){
       if (safari.extension.secureSettings.upshot_safari_login == undefined || safari.extension.secureSettings.upshot_safari_token == undefined){
         return false;

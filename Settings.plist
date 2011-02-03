@@ -37,10 +37,16 @@
 		<true/>
 	</dict>
 	<dict>
+		<key>Type</key>
+		<string>Separator</string>
+	</dict>
+	<dict>
 		<key>Key</key>
 		<string>upshot_safari_accounts</string>
+		<key>Secure</key>
+		<false/>
 		<key>Title</key>
-		<string>accounts</string>
+		<string>Accounts</string>
 		<key>Titles</key>
 		<array/>
 		<key>Type</key>
