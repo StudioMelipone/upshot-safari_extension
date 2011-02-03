@@ -17,6 +17,7 @@
         box = box + "<div id='upshot_safari_box'>";
           box = box + "<img id='base64' name='upshot[base64]' src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />";
           box = box + "<div id='accounts'>accounts select</div>";
+          box= box + "<input type='hidden' name='title' value='"+ safari.application.activeBrowserWindow.activeTab.title +"' id='upshot_safari_title'> ";
           box = box + "<input type='hidden' name='email' value='"+ safari.extension.secureSettings.upshot_safari_login +"' id='upshot_safari_login'>";
           box = box + "<input type='hidden' name='token' value='"+ safari.extension.secureSettings.upshot_safari_token +"' id='upshot_safari_token'>";
           box = box + "<p id='buttons'>";

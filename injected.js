@@ -89,17 +89,17 @@ function submission(){
   // Re-create form to handle callback
   var formData = new FormData();
   // Re-add fields to new form (also avoid additional malicious fields.)
-  formData.append("upshot[base64]", img.src.substr(22, length));
-  formData.append("upshot[title]", "test");
+	var length = img.length;
+  formData.append("upshot[base64]", img.src);
+  formData.append("upshot[title]", "title from safari ext");
   formData.append("upshot[temporary_owner_tag_list]", "");
   formData.append("email", document.getElementById("upshot_safari_login").value);
   formData.append("token", document.getElementById("upshot_safari_token").value);
   
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
-      
       // CALLBACK SENT
-      if(xhr.status==201){
+      if( xhr.status==201 || xhr.status==200 ){
         main.style.color = "#166F28";
         main.style.font = "Georgia bold 22px";
         main.innerHTML = "Your upshot has been successfully <b>created</b>" ;
@@ -107,7 +107,7 @@ function submission(){
         trackButton('draft');
       } else{
         main.style.color = "#FF0000";
-        main.innerHTML = "An Error occured";
+        main.innerHTML = xhr.status==0 ? "Barbie grosse menteuse !" : "An Error occured";
         // Google analyticts
         trackButton('error_on_draft');
       }
@@ -134,7 +134,7 @@ function submission(){
 function trackButton(button_name) {
   // _gaq.push(['_trackEvent', 'button_' + button_name, 'clicked']);
   
-  if(button_name=='draft' || button_name=='error_on_draft'){
+  if(button_name==='draft' || button_name==='error_on_draft'){
     setTimeout(function() {
       close_popup();
     }, 1500);
