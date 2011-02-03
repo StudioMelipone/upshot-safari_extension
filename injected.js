@@ -16,6 +16,22 @@ function handleMessage(msgEvent) {
 			var draft_submit = document.getElementById('Draft');
 			draft_submit.addEventListener('click', submission, false);
 		}
+	} else if(message === "done"){
+		
+		var main = document.getElementById('upshot_safari_box');
+		
+		if(data==200  || data==201){
+			main.style.color = "#166F28";
+	    main.style.font = "Georgia bold 22px";
+	    main.innerHTML = "Your upshot has been successfully <b>created</b>" ;
+	    // Google analyticts
+	    trackButton('draft');
+		} else {
+	    main.style.color = "#FF0000";
+      main.innerHTML = xhr.status==0 ? "Barbie grosse menteuse !" : "An Error occured";
+      // Google analyticts
+      trackButton('error_on_draft');
+		}
 	} else if (message === "credentials"){
 		// Setup credentials
 		setup_box_container(data);
@@ -23,8 +39,7 @@ function handleMessage(msgEvent) {
 		// add listener on save button
 		var save = document.getElementById('upshot_safari_settings_save');
 		save.addEventListener('click', save_settings, false);
-		
-	}
+	} 
 	
 }
 
@@ -51,27 +66,18 @@ function close_popup(){
 	safari.self.tab.dispatchMessage("upshot_safari_extension", "activate");
 }
 
-
-// ///////// 
-// UPSHOT 
-// /////////
-
 function submission(){
-  // Form submission by clicking the 'Draft' button
-	
-	// safari.self.tab.dispatchMessage("upshot_safari_extension", "upshot");
-	
 	// UX : WE ARE SENDING, PLEASE WAIT
 	var img = document.getElementById('base64');
 	var accounts = document.getElementById('accounts');
 	var buttons = document.getElementById('buttons');
 	var main = document.getElementById('upshot_safari_box');
-	
+
 	accounts.style.visibility = "hidden";
   accounts.style.display = "none";
 	buttons.style.visibility = "hidden";
   buttons.style.display = "none";
-	
+
 	main.style.width = 200;
   var load = document.createElement("img");
   load.src = safari.extension.baseURI + "ajax-loader.gif";
@@ -81,41 +87,9 @@ function submission(){
   div.appendChild(load);
 	div.appendChild(document.createTextNode(" Sending upshot..."));
 	main.appendChild(div);
-	
-	// SENDING
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://" + "designer" + ".upshot.dev/upshots", true);
-  
-  // Re-create form to handle callback
-  var formData = new FormData();
-  // Re-add fields to new form (also avoid additional malicious fields.)
-	var length = img.length;
-  formData.append("upshot[base64]", img.src);
-  formData.append("upshot[title]", "title from safari ext");
-  formData.append("upshot[temporary_owner_tag_list]", "");
-  formData.append("email", document.getElementById("upshot_safari_login").value);
-  formData.append("token", document.getElementById("upshot_safari_token").value);
-  
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4) {
-      // CALLBACK SENT
-      if( xhr.status==201 || xhr.status==200 ){
-        main.style.color = "#166F28";
-        main.style.font = "Georgia bold 22px";
-        main.innerHTML = "Your upshot has been successfully <b>created</b>" ;
-        // Google analyticts
-        trackButton('draft');
-      } else{
-        main.style.color = "#FF0000";
-        main.innerHTML = xhr.status==0 ? "Barbie grosse menteuse !" : "An Error occured";
-        // Google analyticts
-        trackButton('error_on_draft');
-      }
-    }
-  }
-  xhr.send(formData);
-
+	safari.self.tab.dispatchMessage("upshot_safari_extension", "upshot");
 }
+
 
 // /////////////////
 // GOOGLE ANALYTICS
