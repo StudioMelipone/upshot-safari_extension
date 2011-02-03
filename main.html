@@ -17,7 +17,19 @@
         box = box + "\
           <div id='upshot_safari_box'>\
             <img id='base64' name='upshot[base64]' src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />\
-            <div id='accounts'>accounts select</div>\
+            <div id='accounts'>\
+              <select id='upshot_safari_select'>";
+              
+        user_accounts = JSON.parse(safari.extension.secureSettings.upshot_safari_accounts);
+        
+        for(u in user_accounts){
+          if(user_accounts[u].role!="customer"){
+            box = box + "<option value='"+ user_accounts[u].subdomain +"'>"+ user_accounts[u].name +"</option>";
+          }
+        }
+              
+        box = box + "</select>\
+            </div>\
             <p id='buttons'>\
               <button id='upshot_safari_cancel' class='red' type='reset' formnovalidate='formnovalidate'>Cancel</button>\
               <button type='button' name='commit' value='Draft' id='Draft' formnovalidate='formnovalidate'>Draft</button>\
@@ -64,7 +76,7 @@
               </div>\
             </div>\
           </div>";
-        
+          
         safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("credentials", box);
       }
       safari.extension.settings.is_opened = 1;
@@ -91,25 +103,28 @@
       		var has_url = event.target.browserWindow.activeTab.url;
       		safari.extension.toolbarItems[0].disabled = !has_url;
       		safari.extension.settings.is_opened = 0;
-        }
-        else if (event.message === "upshot"){
-          submission();
-        }
-		  }else if(event.name==="upshot_safari_credentials"){
-		    safari.extension.secureSettings.upshot_safari_login=event.message.email;
-		    safari.extension.secureSettings.upshot_safari_token=event.message.token;
-        // Self message to try relaunching screenshooter after saving settings
-		    myCommandHandler({"command": "upshot", "target": self});
+        } 
+		  } else if(event.name==="upshot_safari_submission"){
+		    // Screnshot taken and draft button pressed
+        submission(event.message);
+		  } else if(event.name==="upshot_safari_credentials"){
+        // just have fulfilled credentials
+		    email = event.message.email;
+		    token = event.message.token;
+		    safari.extension.secureSettings.upshot_safari_login = email;
+		    safari.extension.secureSettings.upshot_safari_token = token;
+		    
+		    connexion(email, token);
 		  }
   	}
   	
     // function myChangeHandler(event){
-    //       console.log( event.key + " : " + event.newValue + " instead of " + event.oldValue );
+    //       console.log("l.113 myChangeHandler()"+ event.key + " : " + event.newValue + " instead of " + event.oldValue );
     // }
   	
     // Test if login/token are setted
   	function has_credentials(){
-      if (safari.extension.secureSettings.upshot_safari_login == undefined || safari.extension.secureSettings.upshot_safari_token == undefined){
+      if (safari.extension.secureSettings.upshot_safari_user_id === undefined || safari.extension.secureSettings.upshot_safari_user_id === "" ){
         return false;
       } else return true;
     }
@@ -129,12 +144,64 @@
     // ///////// 
     // UPSHOT 
     // /////////
+    
+    // Restrieve user's id in localStorage["upshot_id"].
+    function connexion(email, token){
+      var xhr = new XMLHttpRequest();
 
-    function submission(){
+    	var params = "email="+email+"&token="+token;
+
+    	xhr.open("GET", "http://upshot.dev/users/get_id.json?"+params, true);
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+          // JSON.parse does not evaluate the attacker's scripts.
+          var resp = JSON.parse(xhr.responseText);
+          
+          console.log("l.153 connexion() ");
+          console.log("  id: "+ resp.id);
+          console.log("  state: "+ resp.state);
+          console.log("  offset: "+ resp.offset);
+          console.log("  accounts : "+ resp.user_accounts);
+          console.log("  status: "+ resp.status);
+          
+          if(resp.status==200 && xhr.status==200){
+            // document.getElementById('connection_status').textContent = "Connected";
+            // localStorage["upshot_id"] = resp.id;
+            safari.extension.secureSettings.upshot_safari_user_id = resp.id;
+      			set_user_accounts(resp.user_accounts);
+      			
+            // Self message to try relaunching screenshooter after saving settings
+    		    myCommandHandler({"command": "upshot", "target": self});
+          } else {
+            safari.extension.secureSettings.upshot_safari_user_id = "";
+            safari.extension.secureSettings.upshot_safari_accounts = "";
+
+            // if(resp.status == 401){
+              // document.getElementById('connection_status').textContent = resp.error;
+              myCommandHandler({"command": "bad_credentials", "target": self});
+            // }
+          }
+        }
+      }
+      xhr.send();
+    }
+    
+    // Show the table of user accounts & register them
+    function set_user_accounts(user_accounts){
+    	if(user_accounts!=null && user_accounts!="null" ){
+
+    		// STEP 2 : save them to local storage
+        safari.extension.secureSettings.upshot_safari_accounts = JSON.stringify(user_accounts);
+        // console.log("l.240 set_user_accounts() : "+ JSON.stringify(user_accounts));
+    	}
+    }
+    
+    function submission(subdomain){
       // Form submission by clicking the 'Draft' button
     	// SENDING
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://" + "designer" + ".upshot.dev/upshots", true);
+      xhr.open("POST", "http://" + subdomain + ".upshot.dev/upshots", true);
 
       // Create form to handle callback
       var formData = new FormData();
@@ -151,6 +218,8 @@
       }
       xhr.send(formData);
     }
+    
+    
     
   </script>
   <body></body>

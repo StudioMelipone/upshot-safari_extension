@@ -87,22 +87,22 @@ button.red:hover{
 
 /* SETTINGS */
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+/*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
 body { line-height: 1; }
 ol, ul { list-style: none; }
 blockquote, q { quotes: none; }
 blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
-:focus { outline: 0; }
+:focus { outline: 0; }*/
 ins { text-decoration: none; }
 del { text-decoration: line-through; }
 /* tables still need 'cellspacing="0"' in the markup */
-table { border-collapse: collapse; border-spacing: 0; }
+/*table { border-collapse: collapse; border-spacing: 0; }*/
 /* Our styles */
-h1 { font-style: italic; word-spacing: 0px; font-family: Georgia, "Times New Roman", Times, serif; font-size: 24px; font-weight: normal; }
+/*h1 { font-style: italic; word-spacing: 0px; font-family: Georgia, "Times New Roman", Times, serif; font-size: 24px; font-weight: normal; }
 ol { margin: 0; }
 ol li { background: url("./alert-overlay.png") repeat-x scroll 0 0 #FFE9CC; list-style: none; padding: 5px 10px; margin-bottom: 9px; border: 1px solid rgba(0, 0, 0, 0.1); border-bottom-left-radius: 5px 5px; border-bottom-right-radius: 5px 5px; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; }
 label { float: none !important; color: #3B3B3B; margin-bottom: 9px; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6); }
-body{ background : #EEE; font-family: Lucida Sans, Lucida Grande, Lucida Sans Unicode, sans-serif; color: #555; }
+body{ background : #EEE; font-family: Lucida Sans, Lucida Grande, Lucida Sans Unicode, sans-serif; color: #555; }*/
 div.options { background: #eee; }
 div.main { width: 990px; margin: 100px auto 0 auto; }
 div.options div.logo { background-color: #fff; padding: 18px 0px; text-align: center; }

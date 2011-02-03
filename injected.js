@@ -56,9 +56,10 @@ function save_settings(){
 	var email = document.getElementById('upshot_safari_email').value;
 	var token = document.getElementById('upshot_safari_token').value;
 	
-	safari.self.tab.dispatchMessage("upshot_safari_credentials", { "email":email, "token":token});
-	
-	close_popup();
+	if(email!="" && token!=""){
+		safari.self.tab.dispatchMessage("upshot_safari_credentials", { "email":email, "token":token});
+		close_popup();
+	}
 }
     
 function close_popup(){
@@ -78,6 +79,8 @@ function submission(){
 	var accounts = document.getElementById('accounts');
 	var buttons = document.getElementById('buttons');
 	var main = document.getElementById('upshot_safari_box');
+	var select = document.getElementById('upshot_safari_select');
+	var subdomain = select.options[select.selectedIndex].value
 
 	accounts.style.visibility = "hidden";
   accounts.style.display = "none";
@@ -93,7 +96,7 @@ function submission(){
   div.appendChild(load);
 	div.appendChild(document.createTextNode(" Sending upshot..."));
 	main.appendChild(div);
-	safari.self.tab.dispatchMessage("upshot_safari_extension", "upshot");
+	safari.self.tab.dispatchMessage("upshot_safari_submission", subdomain);
 }
 
 
