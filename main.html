@@ -28,11 +28,41 @@
       } else if( !has_credentials() ){
         box = box + "\
           <div id='upshot_safari_box'>\
-            <h2>Settings</h2>\
-            <p>\
-              Your credential are not defined yet, please go to 'Safari/Preferences > Extensions > UpShot' to define them.<br/>\
-              <button id='upshot_safari_settings_save' type='button' formnovalidate='formnovalidate'>Save</button>\
-            </p>\
+            <div id='main'>\
+            <div class='options w2 fl'>\
+              <div class='drop-shadow round'>\
+            	  <div class='logo'>\
+                  <img src='" + safari.extension.baseURI + "logo.png' alt='UpShot'>\
+                  <p class='s-caps'>Safari Extension</p>\
+                </div>\
+                <h1>\
+                  Your settings\
+                  <span id='status'></span>\
+                </h1>\
+                <div class='fields mt9'>\
+                  <ol>\
+                    <li>\
+                      <label>\
+                        Email\
+                        <input type='text' id='upshot_safari_email'/>\
+                      </label>\
+                    </li>\
+                    <li>\
+                      <label>\
+                      	Your token\
+                        <input type='text' id='upshot_safari_token'/>\
+                      </label>\
+                      <p><small>to get your token just go your profile page on http://upshotapp.com</small></p>\
+                    </li>\
+                    <li>\
+                      <a class='button green big' id='upshot_safari_settings_save'>Save</a>\
+                      <span id='connection_status'></span><br/>\
+                      <small>or simply go to 'Safari/Preferences > Extensions > UpShot' to define them.</small>\
+                    </li>\
+                  </ol>\
+                </div>\
+              </div>\
+            </div>\
           </div>";
         
         safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("credentials", box);
@@ -65,8 +95,17 @@
         else if (event.message === "upshot"){
           submission();
         }
+		  }else if(event.name==="upshot_safari_credentials"){
+		    safari.extension.secureSettings.upshot_safari_login=event.message.email;
+		    safari.extension.secureSettings.upshot_safari_token=event.message.token;
+        // Self message to try relaunching screenshooter after saving settings
+		    myCommandHandler({"command": "upshot", "target": self});
 		  }
   	}
+  	
+    // function myChangeHandler(event){
+    //       console.log( event.key + " : " + event.newValue + " instead of " + event.oldValue );
+    // }
   	
     // Test if login/token are setted
   	function has_credentials(){
@@ -83,8 +122,9 @@
     safari.application.addEventListener("validate", myValidateHandler, false);
     safari.application.addEventListener("message", myMessageHandler, false);
     
-    // self message
-    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("upshot_safari_extension", "activate");
+    // Listen to settings changes
+    // safari.extension.settings.addEventListener("change", myChangeHandler,false);
+    // safari.extension.secureSettings.addEventListener("change", myChangeHandler,false);
 
     // ///////// 
     // UPSHOT 

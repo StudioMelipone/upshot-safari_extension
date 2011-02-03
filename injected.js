@@ -18,15 +18,15 @@ function handleMessage(msgEvent) {
 		}
 	} else if(message === "done"){
 		
-		var main = document.getElementById('upshot_safari_box');
-		
 		if(data==200  || data==201){
+			var main = document.getElementById('upshot_safari_box');
 			main.style.color = "#166F28";
 	    main.style.font = "Georgia bold 22px";
 	    main.innerHTML = "Your upshot has been successfully <b>created</b>" ;
 	    // Google analyticts
 	    trackButton('draft');
 		} else {
+			var main = document.getElementById('upshot_safari_box');
 	    main.style.color = "#FF0000";
       main.innerHTML = xhr.status==0 ? "Barbie grosse menteuse !" : "An Error occured";
       // Google analyticts
@@ -52,6 +52,12 @@ function setup_box_container(data){
 }
 
 function save_settings(){
+	// retrieve login and token and message them
+	var email = document.getElementById('upshot_safari_email').value;
+	var token = document.getElementById('upshot_safari_token').value;
+	
+	safari.self.tab.dispatchMessage("upshot_safari_credentials", { "email":email, "token":token});
+	
 	close_popup();
 }
     
