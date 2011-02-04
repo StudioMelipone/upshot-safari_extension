@@ -18,17 +18,19 @@ function handleMessage(msgEvent) {
 		}
 	} else if(message === "done"){
 		
-		if(data==200  || data==201){
+		if(data==201){
 			var main = document.getElementById('upshot_safari_box');
-			main.style.color = "#166F28";
-	    main.style.font = "Georgia bold 22px";
-	    main.innerHTML = "Your upshot has been successfully <b>created</b>" ;
-	    // Google analyticts
-	    trackButton('draft');
+			if(main!=null){
+				main.style.color = "#166F28";
+		    main.style.font = "Georgia bold 22px";
+		    main.innerHTML = "Your upshot has been successfully <b>created</b>" ;
+		    // Google analyticts
+		    trackButton('draft');
+			}
 		} else {
 			var main = document.getElementById('upshot_safari_box');
 	    main.style.color = "#FF0000";
-      main.innerHTML = xhr.status==0 ? "Barbie grosse menteuse !" : "An Error occured";
+      main.innerHTML = "An Error occured";
       // Google analyticts
       trackButton('error_on_draft');
 		}

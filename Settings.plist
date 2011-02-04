@@ -16,7 +16,7 @@
 		<key>Title</key>
 		<string>Login</string>
 		<key>Type</key>
-		<string>TextField</string>
+		<string>Hidden</string>
 	</dict>
 	<dict>
 		<key>Key</key>
@@ -28,7 +28,7 @@
 		<key>Title</key>
 		<string>Token</string>
 		<key>Type</key>
-		<string>TextField</string>
+		<string>Hidden</string>
 	</dict>
 	<dict>
 		<key>Key</key>
@@ -41,20 +41,16 @@
 		<string>Hidden</string>
 	</dict>
 	<dict>
-		<key>Type</key>
-		<string>Separator</string>
-	</dict>
-	<dict>
 		<key>Key</key>
 		<string>upshot_safari_accounts</string>
 		<key>Secure</key>
-		<false/>
+		<true/>
 		<key>Title</key>
 		<string>Accounts</string>
 		<key>Titles</key>
 		<array/>
 		<key>Type</key>
-		<string>ListBox</string>
+		<string>Hidden</string>
 		<key>Values</key>
 		<array/>
 	</dict>
