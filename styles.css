@@ -12,6 +12,7 @@
 	-webkit-border-radius: 5px;
 	padding: 5px;
 	line-height: 1.5em;
+	white-space: normal;
 }
 
 #upshot_safari_box h3{
@@ -32,6 +33,47 @@
 	line-height: 1.5em;
 }
 
+#upshot_safari_logo, #upshot_safari_logo p{
+	text-align: center;
+	margin: 5px auto;
+}
+
+#upshot_safari_login{
+	text-align: center;	
+}
+
+#upshot_safari_login button{
+	line-height: 2em;
+	color: #ffef67 !important; 
+	background-color: #388B42; 
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+	border: solid 1px rgba(0, 0, 0, 0.2);
+	display: inline-block; 
+	padding: 6px 18px;
+	text-decoration: none; 
+	position: relative; 
+	cursor: pointer; 
+	font-size: 15px; 
+	padding-top: 2x; 
+	margin-top: 9px; 
+	font-weight: normal; 
+	border-bottom-left-radius: 5px 5px; 
+	border-bottom-right-radius: 5px 5px; 
+	border-top-left-radius: 5px 5px; 
+	border-top-right-radius: 5px 5px; 
+}
+
+#upshot_safari_login button:hover { 
+	background-color: #2B6D33; 
+}
+
+#upshot_safari_close{
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	cursor: pointer; 
+}
+
 /* UPSHOT STYLES*/
 
 button#Draft{
@@ -43,7 +85,6 @@ button#Draft{
   -webkit-box-align: center;
   -webkit-box-sizing: border-box;
   -webkit-appearance: push-button;
-
   -webkit-box-shadow: rgba(0, 0, 0, 0.398438) 0px 1px 3px;
   border: 1px solid rgba(0, 0, 0, 0.199219);
   border-bottom-left-radius: 5px 5px;
@@ -83,75 +124,4 @@ button.red{
 }
 button.red:hover{
   background-color: #F7E8E3;
-}
-
-/* SETTINGS */
-
-/*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
-body { line-height: 1; }
-ol, ul { list-style: none; }
-blockquote, q { quotes: none; }
-blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
-:focus { outline: 0; }*/
-ins { text-decoration: none; }
-del { text-decoration: line-through; }
-/* tables still need 'cellspacing="0"' in the markup */
-/*table { border-collapse: collapse; border-spacing: 0; }*/
-/* Our styles */
-/*h1 { font-style: italic; word-spacing: 0px; font-family: Georgia, "Times New Roman", Times, serif; font-size: 24px; font-weight: normal; }
-ol { margin: 0; }
-ol li { background: url("./alert-overlay.png") repeat-x scroll 0 0 #FFE9CC; list-style: none; padding: 5px 10px; margin-bottom: 9px; border: 1px solid rgba(0, 0, 0, 0.1); border-bottom-left-radius: 5px 5px; border-bottom-right-radius: 5px 5px; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; }
-label { float: none !important; color: #3B3B3B; margin-bottom: 9px; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6); }
-body{ background : #EEE; font-family: Lucida Sans, Lucida Grande, Lucida Sans Unicode, sans-serif; color: #555; }*/
-div.options { background: #eee; }
-div.main { width: 990px; margin: 100px auto 0 auto; }
-div.options div.logo { background-color: #fff; padding: 18px 0px; text-align: center; }
-div.options h1 { background-color: #3B3B3B; color: #FFF; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); margin: 0; top: 0; padding: 18px 0px 18px 18px; }
-div.options .fields { background-color: #fff; padding-left: 9px; padding-bottom: 9px; padding-right: 9px; }
-small { font-size: 11px; }
-.w2 { width: 486px; }
-.fl { float: left; }
-.fr { float: right; }
-.s-caps { font-variant: small-caps; }
-.mt9 { margin-top: 9px; }
-input[type='text'], input[type='password']{ border: 1px solid rgba(0, 0, 0, 0.2); border-bottom-left-radius: 5px 5px; border-bottom-right-radius: 5px 5px;    border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; font-size: 22px; outline: none; padding: 9px; width: 428px; }
-.button, a.button { line-height: 26px; color: #3B3B3B; border: solid 1px rgba(0, 0, 0, 0.2); text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5); ; background: #eee url("./alert-overlay.png") repeat-x; display: inline-block; padding: 0px 10px; text-decoration: none; position: relative; cursor: pointer; font-size: 12px; padding-top: 2x; margin-top: 9px; font-weight: normal; border-bottom-left-radius: 5px 5px; border-bottom-right-radius: 5px 5px;    border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; }
-.button:hover, a:hover.button { color: #fff; /*border: solid 1px rgba(255, 255, 255, 0.8);*/ /*text-shadow: none;*/ background-color: #79A0B2; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5); }
-.button:active { background-color: #5d90a9; top: 6px; }
-.button img { float: left; margin: 5px 5px 0px 0px; }
-.button.big { /*line-height: 36px;*/ padding: 6px 18px; font-size: 15px; /*height: 35px;*/ }
-a.button { margin: 9px 0px 18px; top: 5px; /*background-color: transparent;*/ }
-.button.green { color: #ffef67 !important; background-color: #388B42; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);  }
-.button:hover.green { background-color: #2B6D33; }
-/* UPSHOT */
-.drop-shadow {
-	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-  background: none repeat scroll 0 0 #FFFFFF;
-  margin: 2em auto 5em;
-  position: relative;
-}
-.drop-shadow:before, .drop-shadow:after {
-  content: "";
-  height: 50%;
-  left: 13px;
-  position: absolute;
-  top: 10px;
-  width: 50%;
-  z-index: -2;
-}
-.drop-shadow:after {
-  left: auto;
-  right: 13px;
-}
-.round:before, .round:after {
-	-webkit-box-shadow: -15px 10px 20px rgba(0, 0, 0, 0.5);
-	-webkit-transform: rotate(-3deg);
-	box-shadow: -15px 10px 20px rgba(0, 0, 0, 0.5);
-  max-width: 300px;
-}
-.round:after {
-	-webkit-box-shadow: 15px 10px 20px rgba(0, 0, 0, 0.5);
-	-webkit-transform: rotate(3deg);
-	box-shadow: 15px 10px 20px rgba(0, 0, 0, 0.5);
 }

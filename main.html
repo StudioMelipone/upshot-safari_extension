@@ -41,7 +41,7 @@
         // disabled extension while screenshooting, avoids to have several boxes
         event.target.disabled = true;
       } else{
-        connexion("","");
+        connexion(event);
       }
     }
     
@@ -68,23 +68,17 @@
 		  } else if(event.name==="upshot_safari_submission"){
 		    // Screnshot taken and draft button pressed
         submission(event.message);
+		  } else if(event.name==="upshot_login"){
+        // open new tab with http://upshot.dev/login
+        var newTab = safari.application.activeBrowserWindow.openTab();
+        newTab.url = "http://upshot.dev/login";
+        console.log(" new tab to http://upshot.dev/login");
+        
 		  } else if(event.name==="upshot_safari_credentials"){
-        // just have fulfilled credentials
-		    email = event.message.email;
-		    token = event.message.token;
-		    safari.extension.secureSettings.upshot_safari_login = email;
-		    safari.extension.secureSettings.upshot_safari_token = token;
-		    
-		    connexion(email, token);
+        // After an error of sending
+		    request_credentials(event);
 		  }
   	}
-  	
-    // Test if login/token are setted
-  	function has_credentials(){
-      if (safari.extension.secureSettings.upshot_safari_accounts === undefined || safari.extension.secureSettings.upshot_safari_accounts === "" ){
-        return false;
-      } else return true;
-    }
   	
     // Listen to events
     // 'command' events are received once click on extension is done
@@ -98,20 +92,27 @@
     // UPSHOT 
     // /////////
     
+    // Test if accounts list is set
+  	function has_credentials(){
+      if (safari.extension.secureSettings.upshot_safari_accounts === undefined || safari.extension.secureSettings.upshot_safari_accounts === "" ){
+        return false;
+      } else return true;
+    }
+    
     // Restrieve user's id in localStorage["upshot_id"].
-    function connexion(email, token){
+    function connexion(event){
       var xhr = new XMLHttpRequest();
 
-    	var params = "email="+email+"&token="+token;
+      // var params = "email="+email+"&token="+token;
 
-    	xhr.open("GET", "http://upshot.dev/users/get_id.json?"+params, true);
+    	xhr.open("GET", "http://upshot.dev/users/get_id.json", true);
 
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
           // JSON.parse does not evaluate the attacker's scripts.
           var resp = JSON.parse(xhr.responseText);
           
-          // console.log("l.153 connexion() ");
+          // console.log("l.109 connexion() ");
           // console.log("  id: "+ resp.id);
           // console.log("  state: "+ resp.state);
           // console.log("  offset: "+ resp.offset);
@@ -129,12 +130,9 @@
             safari.extension.secureSettings.upshot_safari_user_id = "";
             safari.extension.secureSettings.upshot_safari_accounts = "";
 
-            // if(resp.status == 401){
-              // myCommandHandler({"command": "bad_credentials", "target": self});
               if( !has_credentials() ){
                 request_credentials(event);
               }
-            // }
           }
         }
       }
@@ -152,8 +150,6 @@
       formData.append("upshot[base64]", safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL());
       formData.append("upshot[title]", safari.application.activeBrowserWindow.activeTab.title);
       formData.append("upshot[temporary_owner_tag_list]", "");
-      formData.append("email", safari.extension.secureSettings.upshot_safari_login);
-      formData.append("token", safari.extension.secureSettings.upshot_safari_token);
 
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
@@ -167,41 +163,22 @@
       var box = '';
       box = box + "\
         <div id='upshot_safari_box'>\
-          <div id='main'>\
-          <div class='options w2 fl'>\
-            <div class='drop-shadow round'>\
-          	  <div class='logo'>\
-                <img src='" + safari.extension.baseURI + "logo.png' alt='UpShot'>\
-                <p class='s-caps'>Safari Extension</p>\
-              </div>\
-              <h1>\
-                Your settings\
-                <span id='status'></span>\
-              </h1>\
-              <div class='fields mt9'>\
-                <ol>\
-                  <li>\
-                    <label>\
-                      Email\
-                      <input type='text' id='upshot_safari_email'/>\
-                    </label>\
-                  </li>\
-                  <li>\
-                    <label>\
-                    	Your token\
-                      <input type='text' id='upshot_safari_token'/>\
-                    </label>\
-                    <p><small>to get your token just go your profile page on http://upshotapp.com</small></p>\
-                  </li>\
-                  <li>\
-                    <a class='button green big' id='upshot_safari_settings_save'>Save</a>\
-                    <span id='connection_status'></span><br/>\
-                    <small>or simply go to 'Safari/Preferences > Extensions > UpShot' to define them.</small>\
-                  </li>\
-                </ol>\
-              </div>\
-            </div>\
+          <p>\
+            <a id='upshot_safari_close' type='reset' formnovalidate='formnovalidate'>\
+              <img src='"+ safari.extension.baseURI +"cancel.png' />\
+            </a>\
+          </p>\
+      	  <div id='upshot_safari_logo'>\
+            <img src='" + safari.extension.baseURI + "logo.png' alt='UpShot'>\
+            <p>Safari Extension</p>\
           </div>\
+          <p>\
+            Your not (anymore) logged in UpShot.<br/>\
+            <small>Please log in to send upshots to your account(s)</small><br/>\
+          </p>\
+          <p id='upshot_safari_login'>\
+            <button type='button' formnovalidate='formnovalidate'>Login</button>\
+          </p>\
         </div>";
         
       safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("credentials", box);

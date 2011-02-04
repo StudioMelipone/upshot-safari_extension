@@ -10,28 +10,6 @@
 	</dict>
 	<dict>
 		<key>Key</key>
-		<string>upshot_safari_login</string>
-		<key>Secure</key>
-		<true/>
-		<key>Title</key>
-		<string>Login</string>
-		<key>Type</key>
-		<string>Hidden</string>
-	</dict>
-	<dict>
-		<key>Key</key>
-		<string>upshot_safari_token</string>
-		<key>Password</key>
-		<true/>
-		<key>Secure</key>
-		<true/>
-		<key>Title</key>
-		<string>Token</string>
-		<key>Type</key>
-		<string>Hidden</string>
-	</dict>
-	<dict>
-		<key>Key</key>
 		<string>upshot_safari_user_id</string>
 		<key>Secure</key>
 		<true/>

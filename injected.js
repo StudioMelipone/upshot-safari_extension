@@ -17,9 +17,8 @@ function handleMessage(msgEvent) {
 			draft_submit.addEventListener('click', submission, false);
 		}
 	} else if(message === "done"){
-		
+		var main = document.getElementById('upshot_safari_box');
 		if(data==201){
-			var main = document.getElementById('upshot_safari_box');
 			if(main!=null){
 				main.style.color = "#166F28";
 		    main.style.font = "Georgia bold 22px";
@@ -28,19 +27,23 @@ function handleMessage(msgEvent) {
 		    trackButton('draft');
 			}
 		} else {
-			var main = document.getElementById('upshot_safari_box');
-	    main.style.color = "#FF0000";
-      main.innerHTML = "An Error occured";
-      // Google analyticts
-      trackButton('error_on_draft');
+			if(main!=null){
+		    main.style.color = "#FF0000";
+	      main.innerHTML = "An Error occured";
+	      // Google analyticts
+	      trackButton('error_on_draft');
+			}
 		}
 	} else if (message === "credentials"){
 		// Setup credentials
 		setup_box_container(data);
 		
 		// add listener on save button
-		var save = document.getElementById('upshot_safari_settings_save');
-		save.addEventListener('click', save_settings, false);
+		var login = document.getElementById('upshot_safari_login');
+		login.addEventListener('click', go_to_upshot_login, false);
+		
+		var close = document.getElementById('upshot_safari_close');
+		close.addEventListener('click', close_popup, false);
 	} 
 	
 }
@@ -53,15 +56,9 @@ function setup_box_container(data){
 	document.body.appendChild(container);
 }
 
-function save_settings(){
-	// retrieve login and token and message them
-	var email = document.getElementById('upshot_safari_email').value;
-	var token = document.getElementById('upshot_safari_token').value;
-	
-	if(email!="" && token!=""){
-		safari.self.tab.dispatchMessage("upshot_safari_credentials", { "email":email, "token":token});
+function go_to_upshot_login(){
+		safari.self.tab.dispatchMessage("upshot_login", "");
 		close_popup();
-	}
 }
     
 function close_popup(){
@@ -122,6 +119,9 @@ function trackButton(button_name) {
   if(button_name==='draft' || button_name==='error_on_draft'){
     setTimeout(function() {
       close_popup();
+			if(button_name==='error_on_draft'){
+				safari.self.tab.dispatchMessage("upshot_safari_credentials", "");
+			}
     }, 1500);
   }else{
     close_popup();
