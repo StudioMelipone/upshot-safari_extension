@@ -7,7 +7,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Upshot</string>
 	<key>CFBundleIdentifier</key>
-	<string>eu.studiomelipone.upshot</string>
+	<string>eu.studiomelipone.safari.upshot</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
@@ -64,6 +64,8 @@
 			<string>All</string>
 		</dict>
 	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://eupchote.com/extensions/safari.plist</string>
 	<key>Website</key>
 	<string>http://upshotapp.com</string>
 </dict>
