@@ -71,7 +71,7 @@
 		  } else if(event.name==="upshot_login"){
         // open new tab with http://upshot.dev/login
         var newTab = safari.application.activeBrowserWindow.openTab();
-        newTab.url = "http://upshot.dev/login";
+        newTab.url = "http://"+ safari.extension.settings.upshot_web_site +"/login";
         console.log(" new tab to http://upshot.dev/login");
         
 		  } else if(event.name==="upshot_safari_credentials"){
