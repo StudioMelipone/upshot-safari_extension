@@ -13,10 +13,13 @@
       
       if( event.command==="upshot" && safari.extension.settings.is_opened===0 && has_credentials() ){
         
+        var imageUrl = safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL();
+        safari.extension.settings.upshot_safari_screenshot = imageUrl;
+        
         var box = '';
         box = box + "\
           <div id='upshot_safari_box'>\
-            <img id='base64' name='upshot[base64]' src='" + safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL() + "' alt='image.png' />\
+            <img id='base64' name='upshot[base64]' src='" + imageUrl + "' alt='image.png' />\
             <div id='accounts'>\
               <select id='upshot_safari_select'>";
               
@@ -27,7 +30,7 @@
             box = box + "<option value='"+ user_accounts[u].subdomain +"'>"+ user_accounts[u].name +"</option>";
           }
         }
-              
+        
         box = box + "</select>\
             </div>\
             <p id='buttons'>\
@@ -72,7 +75,6 @@
         // open new tab with http://upshot.dev/login
         var newTab = safari.application.activeBrowserWindow.openTab();
         newTab.url = "http://"+ safari.extension.settings.upshot_web_site +"/login";
-        console.log(" new tab to http://upshot.dev/login");
         
 		  } else if(event.name==="upshot_safari_credentials"){
         // After an error of sending
@@ -147,7 +149,7 @@
 
       // Create form to handle callback
       var formData = new FormData();
-      formData.append("upshot[base64]", safari.application.activeBrowserWindow.activeTab.visibleContentsAsDataURL());
+      formData.append("upshot[base64]", safari.extension.settings.upshot_safari_screenshot);
       formData.append("upshot[title]", safari.application.activeBrowserWindow.activeTab.title);
       formData.append("upshot[temporary_owner_tag_list]", "");
 
@@ -173,7 +175,7 @@
             <p>Safari Extension</p>\
           </div>\
           <p>\
-            Your not (anymore) logged in UpShot.<br/>\
+            You're not logged (anymore) in UpShot.<br/>\
             <small>Please log in to send upshots to your account(s)</small><br/>\
           </p>\
           <p id='upshot_safari_login'>\

@@ -38,5 +38,13 @@
 		<key>Key</key>
 		<string>upshot_web_site</string>
 	</dict>
+	<dict>
+		<key>Key</key>
+		<string>upshot_safari_screenshot</string>
+		<key>Secure</key>
+		<true/>
+		<key>Type</key>
+		<string>Hidden</string>
+	</dict>
 </array>
 </plist>
