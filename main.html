@@ -105,7 +105,7 @@
 
       // var params = "email="+email+"&token="+token;
 
-    	xhr.open("GET", "http://upshot.dev/users/get_id.json", true);
+    	xhr.open("GET", "http://" + safari.extension.settings.upshot_web_site + "/users/get_id.json", true);
 
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
@@ -143,7 +143,7 @@
       // Form submission by clicking the 'Draft' button
     	// SENDING
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://" + subdomain + ".upshot.dev/upshots", true);
+      xhr.open("POST", "http://" + subdomain + "." + safari.extension.settings.upshot_web_site + "/upshots", true);
 
       // Create form to handle callback
       var formData = new FormData();
