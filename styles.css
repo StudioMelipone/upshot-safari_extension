@@ -1,61 +1,67 @@
-#upshot_safari_box{
-	min-width: 250px; 
-	min-height: 250px; 
-	position: fixed; 
-	top: 20px; 
-	right: 20px; 
-	background-color: #fff; 
-	color: #000;
-	z-index: 999999;
-	-webkit-box-shadow:0 0 15px #333;
-	border: 1px solid #ccc;
-	-webkit-border-radius: 5px;
-	padding: 5px;
-	line-height: 1.5em;
+div#upshot_safari_box{
+	min-width: 250px !important; 
+	min-height: 250px !important; 
+	position: fixed !important; 
+	top: 20px !important; 
+	right: 20px !important; 
+	color: #000 !important;
+	z-index: 999999 !important;
+	-webkit-box-shadow:0 0 15px #333 !important;
+	border: 1px solid #ccc !important;
+	-webkit-border-radius: 5px !important;
+	padding: 5px !important;
+	line-height: 1.5em !important;
 	white-space: normal;
-}
-
-#upshot_safari_box h3{
-	line-height: 1.5em;
-	font-family: Georgia;
-	font-size: 18px;
-	margin: 5px;
+	background-color: #FFF !important;
+	opacity: 1;
+	margin: 5px auto !important;
+	font-family: Georgia !important;
 }
 
 #upshot_safari_box img{
 	border: 1px solid #ccc;
-	max-width: 240px;
-	margin: 10px;
+	max-width: 240px !important;
+	margin: 10px !important;
+	background-color: #FFF;
+	opacity: 1;
 }
 
 #upshot_safari_box p{
-	margin: 5px;
+	margin: 5px !important;
 	line-height: 1.5em;
+	background-color: #FFF;
+	opacity: 1;
 }
 
 #upshot_safari_logo, #upshot_safari_logo p{
-	text-align: center;
-	margin: 5px auto;
+	text-align: center !important;
+	margin: 5px auto !important;
+	background-color: #FFF;
+	opacity: 1;
+	line-height: 1.5em !important;
+	font-family: Georgia !important;
+	font-size: 22px !important;
 }
 
 #upshot_safari_login{
-	text-align: center;	
+	text-align: center !important;	
+	background-color: #FFF;
 }
 
 #upshot_safari_login button{
-	line-height: 2em;
+	line-height: 2em !important;
 	color: #ffef67 !important; 
 	background-color: #388B42; 
 	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
 	border: solid 1px rgba(0, 0, 0, 0.2);
 	display: inline-block; 
-	padding: 6px 18px;
+	padding: 6px 18px  !important;
 	text-decoration: none; 
 	position: relative; 
 	cursor: pointer; 
-	font-size: 15px; 
-	padding-top: 2x; 
-	margin-top: 9px; 
+	font-size: 15px !important; 
+	padding-top: 2x !important; 
+	margin-top: 9px !important; 
 	font-weight: normal; 
 	border-bottom-left-radius: 5px 5px; 
 	border-bottom-right-radius: 5px 5px; 
@@ -68,9 +74,9 @@
 }
 
 #upshot_safari_close{
-	position: absolute;
-	top: 2px;
-	right: 2px;
+	position: absolute !important;
+	top: 2px !important;
+	right: 2px !important;
 	cursor: pointer; 
 }
 

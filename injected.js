@@ -103,18 +103,18 @@ function submission(){
 // GOOGLE ANALYTICS
 // /////////////////
 
-var upshot_safari_gaq = upshot_safari_gaq || [];
-upshot_safari_gaq.push(['_setAccount', 'UA-8358011-13']);
-upshot_safari_gaq.push(['_trackPageview']);
-
-(function() {
-  var upshot_safari_ga = document.createElement('script'); upshot_safari_ga.type = 'text/javascript'; upshot_safari_ga.async = true;
-  upshot_safari_ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var upshot_safari_s = document.getElementsByTagName('script')[0]; upshot_safari_s.parentNode.insertBefore(upshot_safari_ga, upshot_safari_s);
-})();
+// var upshot_safari_gaq = upshot_safari_gaq || [];
+// upshot_safari_gaq.push(['_setAccount', 'UA-8358011-13']);
+// upshot_safari_gaq.push(['_trackPageview']);
+// 
+// (function() {
+//   var upshot_safari_ga = document.createElement('script'); upshot_safari_ga.type = 'text/javascript'; upshot_safari_ga.async = true;
+//   upshot_safari_ga.src = 'https://ssl.google-analytics.com/ga.js';
+//   var upshot_safari_s = document.getElementsByTagName('script')[0]; upshot_safari_s.parentNode.insertBefore(upshot_safari_ga, upshot_safari_s);
+// })();
 
 function trackButton(button_name) {
-  upshot_safari_gaq.push(['_trackEvent', 'button_' + button_name, 'clicked']);
+  // upshot_safari_gaq.push(['_trackEvent', 'button_' + button_name, 'clicked']);
   
   if(button_name==='draft' || button_name==='error_on_draft'){
     setTimeout(function() {
