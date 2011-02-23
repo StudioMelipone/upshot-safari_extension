@@ -15,11 +15,12 @@ div#upshot_safari_box{
 	background-color: #FFF !important;
 	opacity: 1;
 	margin: 5px auto !important;
-	font-family: Georgia !important;
+	font-family: 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif !important;
+	font-size: 12px !important;
 }
 
-#upshot_safari_box img{
-	border: 1px solid #ccc;
+#upshot_safari_box img#base64{
+	border: 1px solid #ccc !important;
 	max-width: 240px !important;
 	margin: 10px !important;
 	background-color: #FFF;
@@ -31,6 +32,7 @@ div#upshot_safari_box{
 	line-height: 1.5em;
 	background-color: #FFF;
 	opacity: 1;
+	font-family: 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif !important;
 }
 
 #upshot_safari_logo, #upshot_safari_logo p{
@@ -41,6 +43,12 @@ div#upshot_safari_box{
 	line-height: 1.5em !important;
 	font-family: Georgia !important;
 	font-size: 22px !important;
+	border: none !important;
+	font-family: 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif !important;
+}
+
+#upshot_safari_logo img{
+	border: none !important;
 }
 
 #upshot_safari_login{
@@ -73,18 +81,23 @@ div#upshot_safari_box{
 	background-color: #2B6D33; 
 }
 
-#upshot_safari_close{
+#upshot_safari_close, #upshot_safari_close img{
 	position: absolute !important;
 	top: 2px !important;
 	right: 2px !important;
 	cursor: pointer; 
+	border: none !important;
+}
+
+#upshot_safari_box img#upshot_safari_loader{
+	border-size: 0px !important;
 }
 
 /* UPSHOT STYLES*/
 
 button#Draft{
   background: #EEE;
-  text-shadow: rgba(0, 0, 0, 0.496094) 1px 1px 0px;
+  text-shadow: rgba(255, 255, 255, 0.496094) 1px 1px 0px;
   color: #3B3B3B !important;
   font-size: 12px;
   padding: 6px 18px;
@@ -106,22 +119,12 @@ button#Draft{
 button#Draft:hover{
   background: #79A0B2;
 }
-button.red{
-  background: #EEE;
-  text-shadow: rgba(0, 0, 0, 0.496094) 1px 1px 0px;
-  color: #912A0C !important;
+a.red{
   font-size: 12px;
   padding: 6px 12px;
-  -webkit-box-align: center;
-  -webkit-box-sizing: border-box;
-  -webkit-appearance: push-button;
-  
-  -webkit-box-shadow: rgba(0, 0, 0, 0.398438) 0px 1px 3px;
-  border: 1px solid rgba(0, 0, 0, 0.199219);
-  border-bottom-left-radius: 5px 5px;
-  border-bottom-right-radius: 5px 5px;
-  border-top-left-radius: 5px 5px;
-  border-top-right-radius: 5px 5px;
+
+  margin-left: 9px !important;
+
   cursor: pointer;
   font-weight: normal;
   line-height: 14px;

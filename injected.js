@@ -89,11 +89,14 @@ function submission(){
 	main.style.width = 200;
   var load = document.createElement("img");
   load.src = safari.extension.baseURI + "ajax-loader.gif";
-  load.style.border = "none";
+	load.setAttribute('id', 'upshot_safari_loader');
 
 	var div = document.createElement("div");
   div.appendChild(load);
 	div.appendChild(document.createTextNode(" Sending upshot..."));
+	var sorry = document.createElement("div");
+	sorry.appendChild(document.createTextNode("Please be patient, it might take up to 2 min."));
+	div.appendChild(sorry);
 	main.appendChild(div);
 	safari.self.tab.dispatchMessage("upshot_safari_submission", subdomain);
 }
