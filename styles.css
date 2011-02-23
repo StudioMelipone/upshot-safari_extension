@@ -122,15 +122,12 @@ button#Draft:hover{
 a.red{
   font-size: 12px;
   padding: 6px 12px;
-
   margin-left: 9px !important;
-
   cursor: pointer;
   font-weight: normal;
   line-height: 14px;
   margin-top: 9px;
   text-decoration: none;
+	color: #912A0C !important;
 }
-button.red:hover{
-  background-color: #F7E8E3;
-}
+
