@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.21</string>
+	<string>0.3</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Database Quota</key>
@@ -67,7 +67,7 @@
 		</dict>
 	</dict>
 	<key>Update Manifest URL</key>
-	<string>http://eupchote.com/extensions/safari.plist</string>
+	<string>http://upshotapp.com/extensions/safari.plist</string>
 	<key>Website</key>
 	<string>http://upshotapp.com</string>
 </dict>
