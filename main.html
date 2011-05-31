@@ -73,7 +73,10 @@
 		  } else if(event.name==="upshot_safari_submission"){
 		    // Screnshot taken and draft button pressed
         submission(event.message);
-		  } else if(event.name==="upshot_login"){
+		  } else if(event.name==="upshot_safari_public_submission"){
+  		    // Screnshot taken and public button pressed
+          public_submission(event.message);
+  		} else if(event.name==="upshot_login"){
         // open new tab with http://upshot.dev/login
         var newTab = safari.application.activeBrowserWindow.openTab();
         newTab.url = "http://"+ safari.extension.settings.upshot_web_site +"/login";
@@ -154,7 +157,28 @@
       formData.append("upshot[base64]", safari.extension.settings.upshot_safari_screenshot);
       formData.append("upshot[title]", safari.application.activeBrowserWindow.activeTab.title);
       formData.append("upshot[temporary_owner_tag_list]", "");
+      
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+          safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("done", xhr.status);
+        }
+      }
+      xhr.send(formData);
+    }
+    
+    function public_submission(subdomain){
+      // Form submission by clicking the 'Draft' button
+    	// SENDING
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://" + subdomain + "." + safari.extension.settings.upshot_web_site + "/upshots", true);
 
+      // Create form to handle callback
+      var formData = new FormData();
+      formData.append("upshot[base64]", safari.extension.settings.upshot_safari_screenshot);
+      formData.append("upshot[title]", safari.application.activeBrowserWindow.activeTab.title);
+      formData.append("upshot[temporary_owner_tag_list]", "");
+      formData.append("upshot[is_public]", "1");
+      
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
           safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("done", xhr.status);

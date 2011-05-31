@@ -15,6 +15,9 @@ function handleMessage(msgEvent) {
 
 			var draft_submit = document.getElementById('Draft');
 			draft_submit.addEventListener('click', submission, false);
+			
+			var public_submit = document.getElementById('Public');
+			public_submit.addEventListener('click', public_submission, false);
 		}
 	} else if(message === "done"){
 		var main = document.getElementById('upshot_safari_box');
@@ -72,6 +75,36 @@ function close_popup(){
 	safari.self.tab.dispatchMessage("upshot_safari_extension", "activate");
 }
 
+function public_submission(){
+	// UX : WE ARE SENDING, PLEASE WAIT
+	var img = document.getElementById('base64');
+	var accounts = document.getElementById('accounts');
+	var buttons = document.getElementById('buttons');
+	var main = document.getElementById('upshot_safari_box');
+	var select = document.getElementById('upshot_safari_select');
+	var subdomain = select.options[select.selectedIndex].value
+
+	accounts.style.visibility = "hidden";
+  accounts.style.display = "none";
+	buttons.style.visibility = "hidden";
+  buttons.style.display = "none";
+
+	main.style.width = 200;
+  var load = document.createElement("img");
+  load.src = safari.extension.baseURI + "ajax-loader.gif";
+	load.setAttribute('id', 'upshot_safari_loader');
+	
+	var div = document.createElement("div");
+  div.appendChild(load);
+	div.appendChild(document.createTextNode(" Sending upshot..."));
+	var sorry = document.createElement("div");
+	sorry.appendChild(document.createTextNode("Please be patient, it might take up to 2 min."));
+	div.appendChild(sorry);
+	main.appendChild(div);
+	
+	safari.self.tab.dispatchMessage("upshot_safari_public_submission", subdomain);
+}
+
 function submission(){
 	// UX : WE ARE SENDING, PLEASE WAIT
 	var img = document.getElementById('base64');
@@ -90,7 +123,7 @@ function submission(){
   var load = document.createElement("img");
   load.src = safari.extension.baseURI + "ajax-loader.gif";
 	load.setAttribute('id', 'upshot_safari_loader');
-
+	
 	var div = document.createElement("div");
   div.appendChild(load);
 	div.appendChild(document.createTextNode(" Sending upshot..."));
@@ -98,6 +131,7 @@ function submission(){
 	sorry.appendChild(document.createTextNode("Please be patient, it might take up to 2 min."));
 	div.appendChild(sorry);
 	main.appendChild(div);
+	
 	safari.self.tab.dispatchMessage("upshot_safari_submission", subdomain);
 }
 
