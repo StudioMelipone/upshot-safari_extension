@@ -46,5 +46,9 @@
 		<key>Type</key>
 		<string>Hidden</string>
 	</dict>
+	<dict>
+		<key>Key</key>
+		<string>upshot_last_public</string>
+	</dict>
 </array>
 </plist>

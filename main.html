@@ -18,8 +18,17 @@
         
         var box = '';
         box = box + "\
-          <div id='upshot_safari_box'>\
-          <div id='last_public'></div>\
+          <div id='upshot_safari_box'>";
+          
+        if(safari.extension.settings.upshot_last_public!=undefined && safari.extension.settings.upshot_last_public!=null && safari.extension.settings.upshot_last_public!=""){
+          box = box + "\
+          <div id='last_public'>\
+            Last public upshot :<br/>\
+            <textarea readonly='readonly' cols='31' rows='3' value='"+ safari.extension.settings.upshot_last_public +"'></textarea>\
+          </div>";
+        }
+        
+        box = box + "\
             <img id='base64' name='upshot[base64]' src='" + imageUrl + "' alt='image.png' />\
             <div id='accounts'>\
               <select id='upshot_safari_select'>";
@@ -40,6 +49,8 @@
               <a id='upshot_safari_cancel' class='red' type='reset' href='#'>Cancel</a>\
             </p>\
           </div>";
+        
+        
         
         safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("shot", box);
         safari.extension.settings.is_opened = 1;
@@ -74,8 +85,8 @@
 		    // Screnshot taken and draft button pressed
         submission(event.message);
 		  } else if(event.name==="upshot_safari_public_submission"){
-  		    // Screnshot taken and public button pressed
-          public_submission(event.message);
+  		  // Screnshot taken and public button pressed
+        public_submission(event.message);
   		} else if(event.name==="upshot_login"){
         // open new tab with http://upshot.dev/login
         var newTab = safari.application.activeBrowserWindow.openTab();
@@ -178,10 +189,12 @@
       formData.append("upshot[title]", safari.application.activeBrowserWindow.activeTab.title);
       formData.append("upshot[temporary_owner_tag_list]", "");
       formData.append("upshot[is_public]", "1");
+      formData.append("save_as_active", "true");
       
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
-          safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("done", xhr.status);
+          safari.extension.settings.upshot_last_public = JSON.parse(xhr.responseText).public_hash;
+          safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("public_done", xhr);
         }
       }
       xhr.send(formData);

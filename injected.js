@@ -37,6 +37,33 @@ function handleMessage(msgEvent) {
 	      trackButton('error_on_draft');
 			}
 		}
+	}	else if(message === "public_done"){
+		var main = document.getElementById('upshot_safari_box');
+		if(data.status==201){
+			if(main!=null){
+				main.style.color = "#166F28";
+		    main.style.font = "Georgia bold 22px";
+		    main.innerHTML = "Your upshot has been successfully <b>created</b><br/><br/>This upshot will be accessible with url :<br/>" ;
+				
+				// init eventual last public upshot hash to display
+        var txtarea = document.createElement("textarea");
+        txtarea.value = JSON.parse(data.responseText).public_hash;
+        txtarea.setAttribute('readonly','readonly');
+        txtarea.setAttribute('cols', '31');
+        txtarea.setAttribute('rows', '3');
+        main.appendChild(txtarea);
+		
+		    // Google analyticts
+		    trackButton('public');
+			}
+		} else {
+			if(main!=null){
+		    main.style.color = "#FF0000";
+	      main.innerHTML = "An Error occured";
+	      // Google analyticts
+	      trackButton('error_on_public');
+			}
+		}
 	} else if (message === "credentials"){
 		// Setup credentials
 		setup_box_container(data);
@@ -160,7 +187,9 @@ function trackButton(button_name) {
 				safari.self.tab.dispatchMessage("upshot_safari_credentials", "");
 			}
     }, 1500);
-  }else{
+  }else if(button_name==='public'){
+	
+	}else{
     close_popup();
   }
   
