@@ -43,7 +43,9 @@ function handleMessage(msgEvent) {
 			if(main!=null){
 				main.style.color = "#166F28";
 		    main.style.font = "Georgia bold 22px";
-		    main.innerHTML = "Your upshot has been successfully <b>created</b><br/><br/>This upshot will be accessible with url :<br/>" ;
+		    main.innerHTML = "<div style='float:right;'><a href='' id='closer'>X</a></div><br/>\
+													Your upshot has been successfully <b>created</b><br/><br/>\
+													This upshot will be accessible with url :<br/>" ;
 				
 				// init eventual last public upshot hash to display
         var txtarea = document.createElement("textarea");
@@ -52,6 +54,9 @@ function handleMessage(msgEvent) {
         txtarea.setAttribute('cols', '31');
         txtarea.setAttribute('rows', '3');
         main.appendChild(txtarea);
+
+				var closer = document.getElementById('closer');
+				closer.addEventListener('click', close_popup, false);
 		
 		    // Google analyticts
 		    trackButton('public');
